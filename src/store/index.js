@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { combineReducers } from "redux";
 import {
   persistReducer,
   PAUSE,
@@ -10,14 +11,20 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import themeReducer from "./features/themeSlice";
+import authReducer from "./features/authSlice";
 import apiSlice from "../api/apiSlice";
 
 const persistConfig = { key: "root", storage, version: 1 };
-const persistedThemeReducer = persistReducer(persistConfig, themeReducer);
+
+const reducers = combineReducers({
+  theme: themeReducer,
+  auth: authReducer,
+});
+const persistedReducers = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: {
-    theme: persistedThemeReducer,
+    persist: persistedReducers,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

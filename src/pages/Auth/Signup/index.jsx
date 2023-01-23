@@ -6,10 +6,8 @@ import { useSignUpMutation } from "../../../service/authService";
 
 const SignUp = () => {
   const [activeStep, setActiveStep] = useState(0);
-
-  const [signUp, { isLoading, isSuccess }] = useSignUpMutation();
-
   const navigate = useNavigate();
+  const [signUp, { isLoading }] = useSignUpMutation();
 
   const handleNext = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -33,12 +31,12 @@ const SignUp = () => {
 
       try {
         const response = await signUp(formData);
-        if (response) navigate("/");
+        if (response) navigate("/login");
       } catch (err) {
         console.log(err);
       }
     },
-    [activeStep, handleNext, signUp]
+    [activeStep, handleNext, navigate, signUp]
   );
 
   return (

@@ -1,13 +1,16 @@
 import Card from "../../../../components/layout/ProfileCard";
 import { Box, Divider } from "@mui/material";
-import { TypographyDark, TypographyMedium } from "../../../../components/core/Typography";
+import {
+  TypographyDark,
+  TypographyMedium,
+} from "../../../../components/core/Typography";
 import { FollowInfo, ViewProfileButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const ProfileCard = () => {
+const ProfileCard = ({ userImage }) => {
   const navigate = useNavigate();
   return (
-    <Card>
+    <Card userImage={userImage}>
       <Divider flexItem />
       <FollowInfo>
         <Box>
@@ -21,7 +24,9 @@ const ProfileCard = () => {
         </Box>
       </FollowInfo>
       <Divider flexItem />
-      <ViewProfileButton onClick={() => navigate("/profile")}>View Profile</ViewProfileButton>
+      <ViewProfileButton onClick={() => navigate("/profile")}>
+        View Profile
+      </ViewProfileButton>
     </Card>
   );
 };

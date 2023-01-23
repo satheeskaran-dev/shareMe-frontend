@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Container,
   LeftContainer,
@@ -10,10 +11,11 @@ import Advert from "./components/Advert";
 import Img1 from "../../assets/images/postpic1.jpg";
 
 const Home = () => {
+  const user = useSelector((state) => state?.persist?.auth?.user);
   return (
     <Container>
       <LeftContainer>
-        <Profile />
+        <Profile userImage={user.profileImg} />
       </LeftContainer>
       <CenterContainer>
         <NewsFeed
