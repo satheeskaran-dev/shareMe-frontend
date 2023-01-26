@@ -1,12 +1,12 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://share-me.cyclic.app/api/:splat"
+  to = "https://share-me-pag5.onrender.com/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/assets/*"
-  to = "https://share-me.cyclic.app/assets/:splat"
+  to = "https://share-me-pag5.onrender.com/assets/:splat"
   status = 200
   force = true
 
