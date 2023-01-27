@@ -2,11 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
-  "proxy": "https://share-me.cyclic.app",
-=======
   "proxy": "https://share-me-pag5.onrender.com",
->>>>>>> main
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
