@@ -25,7 +25,7 @@ import MobileMenu from "./MobileMenu";
 
 const Header = ({ logoutButtonClicked }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mode = useSelector((state) => state.mode);
+  const mode = useSelector((state) => state?.persist?.theme?.mode);
   const dispatch = useDispatch();
   const isSmallDevices = useMediaQuery(useTheme().breakpoints.down("1000"));
 

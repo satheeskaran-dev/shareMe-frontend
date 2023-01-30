@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -8,10 +9,11 @@ import TextField from "../../core/TextField";
 import { FlexContainer, FlexColumn } from "../../core/FlexItems";
 import Logo from "../../core/Logo";
 import { TypographyMedium } from "../../core/Typography";
+import BackendError from "../../core/BackendError";
 
 const initialValues = { email: "", password: "" };
 
-const LoginForm = ({ loginFormSubmit, isLoading }) => {
+const LoginForm = ({ loginFormSubmit, isLoading, errorMsg }) => {
   const navigate = useNavigate();
   const { values, handleSubmit, handleChange, handleBlur, errors, touched } =
     useFormik({ initialValues, validationSchema, onSubmit: loginFormSubmit });
@@ -41,6 +43,7 @@ const LoginForm = ({ loginFormSubmit, isLoading }) => {
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
+          <BackendError isError={Boolean(errorMsg)}>{errorMsg}</BackendError>
           <LoadingButton variant='contained' loading={isLoading} type='submit'>
             Login
           </LoadingButton>
@@ -56,4 +59,4 @@ const LoginForm = ({ loginFormSubmit, isLoading }) => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

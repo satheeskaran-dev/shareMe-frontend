@@ -6,7 +6,7 @@ import { setLoggedInUserData } from "../../../store/features/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [logIn, { isLoading }] = useLogInMutation();
+  const [logIn, { isLoading, error }] = useLogInMutation();
 
   const loginFormSubmitHandler = async (values, { resetForm }) => {
     try {
@@ -22,6 +22,7 @@ const Login = () => {
       <LoginForm
         loginFormSubmit={loginFormSubmitHandler}
         isLoading={isLoading}
+        errorMsg={error?.data?.message}
       />
     </Container>
   );
