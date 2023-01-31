@@ -6,6 +6,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "../../core/Button";
 import validationSchema from "./schema";
 import TextField from "../../core/TextField";
+import PasswordField from "../../core/PasswordField";
 import { FlexContainer, FlexColumn } from "../../core/FlexItems";
 import Logo from "../../core/Logo";
 import { TypographyMedium } from "../../core/Typography";
@@ -33,7 +34,7 @@ const LoginForm = ({ loginFormSubmit, isLoading, errorMsg }) => {
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
           />
-          <TextField
+          <PasswordField
             label='Password'
             placeholder='Enter your password'
             name='password'
