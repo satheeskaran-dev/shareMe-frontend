@@ -31,7 +31,7 @@ const ConfirmationPopUp = ({
   handleConfirmationButtonClick,
 }) => {
   return (
-    <Modal open={isOpen} onClose={handleClose}>
+    <Modal open={isOpen}>
       <Container elevation={0}>
         <ConfirmationIcon />
         <Typography variant='subtitle2'>{msg}</Typography>

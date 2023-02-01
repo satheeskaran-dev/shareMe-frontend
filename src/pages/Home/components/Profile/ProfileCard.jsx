@@ -7,19 +7,26 @@ import {
 import { FollowInfo, ViewProfileButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const ProfileCard = ({ userImage }) => {
+const ProfileCard = ({
+  firstName,
+  lastName,
+  work,
+  followers,
+  following,
+  profileImg,
+}) => {
   const navigate = useNavigate();
   return (
-    <Card userImage={userImage}>
+    <Card {...{ firstName, lastName, work, profileImg }}>
       <Divider flexItem />
       <FollowInfo>
         <Box>
-          <TypographyDark variant='h6'>5998</TypographyDark>
+          <TypographyDark variant='h6'>{followers?.length}</TypographyDark>
           <TypographyMedium>Followers</TypographyMedium>
         </Box>
         <Divider flexItem orientation='vertical' />
         <Box>
-          <TypographyDark variant='h6'>5998</TypographyDark>
+          <TypographyDark variant='h6'>{following?.length}</TypographyDark>
           <TypographyMedium>Following</TypographyMedium>
         </Box>
       </FollowInfo>

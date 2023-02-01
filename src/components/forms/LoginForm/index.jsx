@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "../../core/Button";
-import validationSchema from "./schema";
+import validationSchema from "./validationSchema";
 import TextField from "../../core/TextField";
 import PasswordField from "../../core/PasswordField";
 import { FlexContainer, FlexColumn } from "../../core/FlexItems";
@@ -19,6 +19,7 @@ const LoginForm = ({ loginFormSubmit, isLoading, errorMsg }) => {
   const { values, handleSubmit, handleChange, handleBlur, errors, touched } =
     useFormik({ initialValues, validationSchema, onSubmit: loginFormSubmit });
 
+  console.log("login");
   return (
     <FlexContainer sx={{ maxWidth: "35rem", p: "2.5rem 2rem" }}>
       <form onSubmit={handleSubmit}>

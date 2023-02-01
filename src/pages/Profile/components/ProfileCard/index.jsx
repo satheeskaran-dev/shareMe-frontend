@@ -1,22 +1,29 @@
 import Card from "../../../../components/layout/ProfileCard";
 import { Box, Divider } from "@mui/material";
 import { FollowInfo } from "./styles";
-import { TypographyDark, TypographyMedium } from "../../../../components/core/Typography";
+import {
+  TypographyDark,
+  TypographyMedium,
+} from "../../../../components/core/Typography";
 import PersonalInfo from "./PersonalInfo";
 
-const ProfileCard = () => {
+const ProfileCard = (user) => {
   return (
-    <Card>
+    <Card {...user}>
       <Box width='100%' px='1rem'>
         <Divider flexItem />
         <FollowInfo>
           <Box>
-            <TypographyDark variant='h6'>5998</TypographyDark>
+            <TypographyDark variant='h6'>
+              {user?.followers?.length}
+            </TypographyDark>
             <TypographyMedium>Followers</TypographyMedium>
           </Box>
           <Divider flexItem orientation='vertical' />
           <Box>
-            <TypographyDark variant='h6'>5998</TypographyDark>
+            <TypographyDark variant='h6'>
+              {user?.following?.length}
+            </TypographyDark>
             <TypographyMedium>Following</TypographyMedium>
           </Box>
           <Divider flexItem orientation='vertical' />
@@ -26,7 +33,7 @@ const ProfileCard = () => {
           </Box>
         </FollowInfo>
         <Divider flexItem />
-        <PersonalInfo />
+        <PersonalInfo {...user} />
       </Box>
     </Card>
   );

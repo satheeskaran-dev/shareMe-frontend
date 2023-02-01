@@ -1,5 +1,12 @@
-import { FlexBetween, FlexRow, FlexColumn } from "../../../../components/core/FlexItems";
-import { TypographyDark, TypographyMedium } from "../../../../components/core/Typography";
+import {
+  FlexBetween,
+  FlexRow,
+  FlexColumn,
+} from "../../../../components/core/FlexItems";
+import {
+  TypographyDark,
+  TypographyMedium,
+} from "../../../../components/core/Typography";
 import {
   ModeEditOutlineOutlined,
   AutorenewOutlined,
@@ -7,26 +14,32 @@ import {
   WorkOutlineOutlined,
 } from "@mui/icons-material";
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ status, location, companyName }) => {
   return (
     <FlexBetween width='100%' py='1rem'>
       <FlexColumn spacing='.75rem'>
         <TypographyDark variant='subtile1'>Your info</TypographyDark>
-        <FlexRow>
-          <AutorenewOutlined fontSize='small' />
-          <TypographyDark variant='body2'>Status</TypographyDark>
-          <TypographyMedium>in Relationship</TypographyMedium>
-        </FlexRow>
-        <FlexRow>
-          <HomeOutlined fontSize='small' />
-          <TypographyDark variant='body2'>Lives in</TypographyDark>
-          <TypographyMedium>Kodikamam</TypographyMedium>
-        </FlexRow>
-        <FlexRow>
-          <WorkOutlineOutlined fontSize='small' />
-          <TypographyDark variant='body2'>Works at</TypographyDark>
-          <TypographyMedium>HUEX</TypographyMedium>
-        </FlexRow>
+        {status && (
+          <FlexRow>
+            <AutorenewOutlined fontSize='small' />
+            <TypographyDark variant='body2'>Status</TypographyDark>
+            <TypographyMedium>{status}</TypographyMedium>
+          </FlexRow>
+        )}
+        {location && (
+          <FlexRow>
+            <HomeOutlined fontSize='small' />
+            <TypographyDark variant='body2'>Lives in</TypographyDark>
+            <TypographyMedium>{location}</TypographyMedium>
+          </FlexRow>
+        )}
+        {companyName && (
+          <FlexRow>
+            <WorkOutlineOutlined fontSize='small' />
+            <TypographyDark variant='body2'>Works at</TypographyDark>
+            <TypographyMedium>{companyName}</TypographyMedium>
+          </FlexRow>
+        )}
       </FlexColumn>
       <ModeEditOutlineOutlined />
     </FlexBetween>

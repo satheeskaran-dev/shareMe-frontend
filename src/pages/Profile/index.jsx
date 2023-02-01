@@ -10,8 +10,10 @@ import LeftSide from "./components/LeftSide";
 import NewPostCard from "../../components/layout/NewPostCard";
 import PostCard from "../../components/layout/PostCard";
 import RightSide from "./components/RightSide";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const user = useSelector((state) => state?.persist?.auth?.user);
   return (
     <Container>
       <LeftContainer>
@@ -19,7 +21,7 @@ const Profile = () => {
       </LeftContainer>
       <CenterContainer>
         <FlexColumn>
-          <ProfileCard />
+          <ProfileCard {...user} />
           <NewPostCard />
           <PostCard />
           <PostCard />

@@ -3,10 +3,10 @@ import { TypographyDark } from "../../../../components/core/Typography";
 import FollowerCard from "../../../../components/layout/FollowerCard";
 import { FlexColumn } from "../../../../components/core/FlexItems";
 
-const Profile = ({ userImage }) => {
+const Profile = (userData) => {
   return (
     <FlexColumn>
-      <ProfileCard userImage={userImage} />
+      <ProfileCard {...userData} />
       <TypographyDark variant='h6'>Who is following you</TypographyDark>
       <FollowerCard />
       <FollowerCard />

@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <Container>
       <LeftContainer>
-        <Profile userImage={user?.profileImg} />
+        <Profile {...user} />
       </LeftContainer>
       <CenterContainer>
         <NewsFeed

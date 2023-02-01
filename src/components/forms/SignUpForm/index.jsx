@@ -13,6 +13,7 @@ import {
   FormStep5,
 } from "./formSteps";
 import initialValues from "./formModel/initialValues";
+import { memo } from "react";
 
 const SignUpForm = ({
   signUpFormSubmit,
@@ -36,7 +37,7 @@ const SignUpForm = ({
     ],
     [formik]
   );
-
+  console.log("signup");
   return (
     <form style={{ maxWidth: "35rem" }} onSubmit={formik.handleSubmit}>
       <Container>
@@ -57,4 +58,4 @@ const SignUpForm = ({
   );
 };
 
-export default SignUpForm;
+export default memo(SignUpForm);

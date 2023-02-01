@@ -1,4 +1,6 @@
 import { styled, Typography } from "@mui/material";
+import { memo, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Logo = styled((props) => (
   <Typography color='primary' {...props}>
@@ -13,4 +15,18 @@ const Logo = styled((props) => (
   },
 }));
 
-export default Logo;
+const _Logo = (props) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  return (
+    <Logo
+      onClick={useCallback(
+        () => pathname !== "/home" && pathname !== "/login" && navigate("/"),
+        [pathname, navigate]
+      )}
+      {...props}
+    />
+  );
+};
+
+export default memo(_Logo);
