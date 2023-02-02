@@ -1,4 +1,5 @@
 import { styled, Box, Avatar } from "@mui/material";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 
 export const ProfileImages = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -19,10 +20,20 @@ export const UserAvatar = styled(Avatar)(({ theme }) => ({
   border: `3px solid ${theme.palette.background.alt}`,
   width: "100px",
   height: "100px",
-  position: "absolute",
-  bottom: "-50px",
+
   boxShadow: theme.shadows[1],
 }));
 
-
-
+export const EditIcon = styled((props) => (
+  <Box {...props}>
+    <CameraAltOutlinedIcon fontSize='small' />
+  </Box>
+))(({ theme }) => ({
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  display: "grid",
+  placeContent: "center",
+  cursor: "pointer",
+  backgroundColor: theme.palette.background.alt,
+}));
