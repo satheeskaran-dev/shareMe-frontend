@@ -4,12 +4,17 @@ export const userService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     removeProfile: builder.mutation({
       query: (id) => ({
-        url: `/user/remove-profile`,
+        url: `/user/remove-profile/${id}`,
         method: "DELETE",
-        params: id,
+      }),
+    }),
+    getUser: builder.query({
+      query: (id) => ({
+        url: `/user`,
+        params: { id },
       }),
     }),
   }),
 });
 
-export const { useRemoveProfileMutation } = userService;
+export const { useRemoveProfileMutation, useLazyGetUserQuery } = userService;

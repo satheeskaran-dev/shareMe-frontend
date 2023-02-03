@@ -19,7 +19,6 @@ const LoginForm = ({ loginFormSubmit, isLoading, errorMsg }) => {
   const { values, handleSubmit, handleChange, handleBlur, errors, touched } =
     useFormik({ initialValues, validationSchema, onSubmit: loginFormSubmit });
 
-  console.log("login");
   return (
     <FlexContainer sx={{ maxWidth: "35rem", p: "2.5rem 2rem" }}>
       <form onSubmit={handleSubmit}>
@@ -45,14 +44,18 @@ const LoginForm = ({ loginFormSubmit, isLoading, errorMsg }) => {
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
-          <BackendError isError={Boolean(errorMsg)}>{errorMsg}</BackendError>
+          <BackendError errorMsg={errorMsg} />
           <LoadingButton variant='contained' loading={isLoading} type='submit'>
             Login
           </LoadingButton>
           <Divider flexItem>
             <TypographyMedium>or</TypographyMedium>
           </Divider>
-          <Button variant='outlined' onClick={() => navigate("/sign-up")}>
+          <Button
+            variant='outlined'
+            onClick={() => navigate("/sign-up")}
+            disabled={isLoading}
+          >
             Create New Account
           </Button>
         </FlexColumn>

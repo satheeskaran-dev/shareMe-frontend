@@ -1,4 +1,4 @@
-import { styled, Box, Avatar } from "@mui/material";
+import { styled, Box, Avatar, IconButton } from "@mui/material";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 
 export const ProfileImages = styled(Box)(({ theme }) => ({
@@ -25,15 +25,11 @@ export const UserAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export const EditIcon = styled((props) => (
-  <Box {...props}>
+  <IconButton {...props}>
     <CameraAltOutlinedIcon fontSize='small' />
-  </Box>
+  </IconButton>
 ))(({ theme }) => ({
   width: "30px",
   height: "30px",
-  borderRadius: "50%",
-  display: "grid",
-  placeContent: "center",
-  cursor: "pointer",
-  backgroundColor: theme.palette.background.alt,
+  backgroundColor: theme.palette.background.medium,
 }));

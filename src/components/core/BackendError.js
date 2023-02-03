@@ -1,6 +1,6 @@
 import { styled, Alert } from "@mui/material";
 
-const BackendError = styled(
+const MuiAlert = styled(
   (props) => <Alert variant='filled' severity='error' {...props} />,
   { shouldForwardProp: (props) => props !== "isError" }
 )(({ theme, isError }) => ({
@@ -8,5 +8,9 @@ const BackendError = styled(
   width: "100%",
   padding: "3px 10px",
 }));
+
+const BackendError = ({ errorMsg }) => (
+  <MuiAlert isError={Boolean(errorMsg)}>{errorMsg}</MuiAlert>
+);
 
 export default BackendError;

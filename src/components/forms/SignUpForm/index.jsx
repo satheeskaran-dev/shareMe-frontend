@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { useFormik } from "formik";
 import LoadingButton from "@mui/lab/LoadingButton";
 import validationSchema from "./formModel/validationSchema";
@@ -14,12 +14,14 @@ import {
 } from "./formSteps";
 import initialValues from "./formModel/initialValues";
 import { memo } from "react";
+import BackendError from "../../core/BackendError";
 
 const SignUpForm = ({
   signUpFormSubmit,
   activeStep,
   handleBack,
   isButtonLoading,
+  errorMsg,
 }) => {
   const formik = useFormik({
     initialValues,
@@ -37,20 +39,23 @@ const SignUpForm = ({
     ],
     [formik]
   );
-  console.log("signup");
+
   return (
     <form style={{ maxWidth: "35rem" }} onSubmit={formik.handleSubmit}>
       <Container>
         <Logo textAlign='center' />
         {formSteps[activeStep]}
         {activeStep === 4 && (
-          <LoadingButton
-            variant='contained'
-            loading={isButtonLoading}
-            type='submit'
-          >
-            Signup
-          </LoadingButton>
+          <Fragment>
+            <BackendError errorMsg={errorMsg} />
+            <LoadingButton
+              variant='contained'
+              loading={isButtonLoading}
+              type='submit'
+            >
+              Signup
+            </LoadingButton>
+          </Fragment>
         )}
         <Stepper {...{ activeStep, handleBack }} />
       </Container>

@@ -10,9 +10,9 @@ const Login = () => {
 
   const loginFormSubmitHandler = async (values, { resetForm }) => {
     try {
-      const response = await logIn(values);
-      dispatch(setLoggedInUserData(response?.data));
-      resetForm();
+      const { data } = await logIn(values);
+      dispatch(setLoggedInUserData(data));
+      data && resetForm();
     } catch (err) {
       console.log(err);
     }
