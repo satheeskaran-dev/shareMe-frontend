@@ -17,7 +17,7 @@ const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
     [firstName, lastName]
   );
 
-  const [removeProfile, { isLoading }] = useRemoveProfileMutation();
+  const [removeProfile] = useRemoveProfileMutation();
 
   console.log(_id);
 
