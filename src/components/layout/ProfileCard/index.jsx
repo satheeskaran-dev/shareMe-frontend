@@ -10,7 +10,6 @@ import {
 } from "../../../components/core/Typography";
 import ActionMenu from "./ActionMenu";
 import { useRemoveProfileMutation } from "../../../service/userService";
-import { useLazyGetUserQuery } from "../../../service/userService";
 import { removeProfilePicture } from "../../../store/features/authSlice";
 
 const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
@@ -30,8 +29,6 @@ const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
 
   const [removeProfile] = useRemoveProfileMutation();
 
-  const [trigger, { data }] = useLazyGetUserQuery();
-
   const ActionMenuCloseHandler = useCallback(() => setAnchorEl(null), []);
 
   const handleRemoveProfileImage = async () => {
@@ -42,8 +39,6 @@ const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
         dispatch(removeProfilePicture());
         setAnchorEl(null);
       }
-
-      // await trigger(_id);
     } catch (err) {
       console.log(err);
     }

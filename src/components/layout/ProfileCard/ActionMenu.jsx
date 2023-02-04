@@ -19,7 +19,7 @@ const IconWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.medium,
 }));
 
-const ActionMenu = ({ anchorEl, handleClose,removeButtonClicked }) => {
+const ActionMenu = ({ anchorEl, handleClose, removeButtonClicked }) => {
   return (
     <Menu
       id='basic-menu'

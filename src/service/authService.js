@@ -14,7 +14,7 @@ export const authService = apiSlice.injectEndpoints({
       query: (credential) => ({
         url: "/auth/login",
         method: "POST",
-        
+
         body: credential,
       }),
     }),
@@ -26,8 +26,8 @@ export const authService = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
-          dispatch(logout());
+
+          data && dispatch(logout());
           dispatch(apiSlice.util.resetApiState());
           // setTimeout(() => dispatch(apiSlice.util.resetApiState()), 1000);
         } catch (err) {
