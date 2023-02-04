@@ -7,22 +7,22 @@ import {
 } from "../../../../components/core/Typography";
 import PersonalInfo from "./PersonalInfo";
 
-const ProfileCard = (user) => {
+const ProfileCard = (props) => {
   return (
-    <Card {...user}>
+    <Card {...props} isEditable>
       <Box width='100%' px='1rem'>
         <Divider flexItem />
         <FollowInfo>
           <Box>
             <TypographyDark variant='h6'>
-              {user?.followers?.length}
+              {props?.user?.followers?.length}
             </TypographyDark>
             <TypographyMedium>Followers</TypographyMedium>
           </Box>
           <Divider flexItem orientation='vertical' />
           <Box>
             <TypographyDark variant='h6'>
-              {user?.following?.length}
+              {props?.user?.following?.length}
             </TypographyDark>
             <TypographyMedium>Following</TypographyMedium>
           </Box>
@@ -33,7 +33,7 @@ const ProfileCard = (user) => {
           </Box>
         </FollowInfo>
         <Divider flexItem />
-        <PersonalInfo {...user} />
+        <PersonalInfo {...props.user} />
       </Box>
     </Card>
   );

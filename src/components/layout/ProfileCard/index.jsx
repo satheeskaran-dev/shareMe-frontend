@@ -1,6 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Badge } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { FlexContainer, FlexColumn } from "../../../components/core/FlexItems";
 import { ProfileImages, CoverImage, UserAvatar, EditIcon } from "./styles";
 import CoverPhoto from "../../../assets/images/cover.jpg";
@@ -9,41 +8,23 @@ import {
   TypographyMedium,
 } from "../../../components/core/Typography";
 import ActionMenu from "./ActionMenu";
-import { useRemoveProfileMutation } from "../../../service/userService";
-import { removeProfilePicture } from "../../../store/features/authSlice";
 
-const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const dispatch = useDispatch();
-
-  const actionMenuOpenHandler = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const { _id } = useSelector((state) => state?.persist?.auth?.user);
+const ProfileCard = ({
+  children,
+  user: { firstName, lastName, profileImg, work },
+  cardActions,
+  isEditable,
+}) => {
   const fullName = useMemo(
     () => [firstName, lastName].join(" "),
     [firstName, lastName]
   );
-
-  const [removeProfile] = useRemoveProfileMutation();
-
-  const ActionMenuCloseHandler = useCallback(() => setAnchorEl(null), []);
-
-  const handleRemoveProfileImage = async () => {
-    try {
-      const response = await removeProfile(_id);
-
-      if (response?.data?.status === 200) {
-        dispatch(removeProfilePicture());
-        setAnchorEl(null);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  const {
+    anchorEl,
+    actionMenuOpenHandler,
+    ActionMenuCloseHandler,
+    handleRemoveProfileImage,
+  } = cardActions || {};
   return (
     <FlexContainer column>
       <ProfileImages>
@@ -53,6 +34,7 @@ const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           badgeContent={
             <EditIcon
+              sx={!isEditable && { display: "none" }}
               onClick={actionMenuOpenHandler}
               id='basic-button'
               aria-controls={Boolean(anchorEl) ? "basic-menu" : undefined}
@@ -67,7 +49,7 @@ const ProfileCard = ({ children, profileImg, firstName, lastName, work }) => {
         <ActionMenu
           anchorEl={anchorEl}
           handleClose={ActionMenuCloseHandler}
-          removeButtonClicked={handleRemoveProfileImage}
+          removeButtonClicked={profileImg && handleRemoveProfileImage}
         />
       </ProfileImages>
       <FlexColumn alignItems='center' mt='3.5rem' spacing={0}>

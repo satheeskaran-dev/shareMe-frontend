@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <Container>
       <LeftContainer>
-        <Profile {...user} />
+        <Profile user={user} />
       </LeftContainer>
       <CenterContainer>
         <NewsFeed
