@@ -8,10 +8,24 @@ import {
 import Profile from "./components/Profile";
 import NewsFeed from "./components/NewsFeed";
 import Advert from "./components/Advert";
-import Img1 from "../../assets/images/postpic1.jpg";
+import { useCreatePostMutation } from "../../service/postService";
 
 const Home = () => {
   const user = useSelector((state) => state?.persist?.auth?.user);
+
+  const [createPost, {}] = useCreatePostMutation();
+
+  const handleNewPostFormSubmit = async (data) => {
+    let formData = new FormData();
+
+    Object.keys(data).map((key) => {
+      formData.append(key, data[key]);
+    });
+
+    const response = await createPost({ userId: user._id, data: formData });
+
+    console.log(response);
+  };
   return (
     <Container>
       <LeftContainer>
@@ -19,9 +33,9 @@ const Home = () => {
       </LeftContainer>
       <CenterContainer>
         <NewsFeed
-          postCardProps={{
-            image: Img1,
-          }}
+          handleNewPostFormSubmit={handleNewPostFormSubmit}
+          createPostCardProps={{ handleNewPostFormSubmit, user }}
+          postCardProps={user}
         />
       </CenterContainer>
       <RightContainer>

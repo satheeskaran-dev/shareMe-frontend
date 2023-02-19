@@ -19,7 +19,12 @@ const IconWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.medium,
 }));
 
-const ActionMenu = ({ anchorEl, handleClose, removeButtonClicked }) => {
+const ActionMenu = ({
+  anchorEl,
+  handleClose,
+  removeButtonClicked,
+  profileImg,
+}) => {
   return (
     <Menu
       id='basic-menu'
@@ -48,16 +53,18 @@ const ActionMenu = ({ anchorEl, handleClose, removeButtonClicked }) => {
           </TypographyMedium>
         </Wrapper>
       </MenuItem>
-      <MenuItem onClick={removeButtonClicked}>
-        <Wrapper>
-          <IconWrapper>
-            <DeleteIcon fontSize='15px' />
-          </IconWrapper>
-          <TypographyMedium variant='subtitle2'>
-            Remove profile
-          </TypographyMedium>
-        </Wrapper>
-      </MenuItem>
+      {profileImg && (
+        <MenuItem onClick={removeButtonClicked}>
+          <Wrapper>
+            <IconWrapper>
+              <DeleteIcon fontSize='15px' />
+            </IconWrapper>
+            <TypographyMedium variant='subtitle2'>
+              Remove profile
+            </TypographyMedium>
+          </Wrapper>
+        </MenuItem>
+      )}
     </Menu>
   );
 };

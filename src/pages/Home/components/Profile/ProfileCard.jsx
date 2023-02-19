@@ -8,7 +8,6 @@ import { FollowInfo, ViewProfileButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 const ProfileCard = ({ user }) => {
-  console.log(user);
   const navigate = useNavigate();
   return (
     <Card user={user}>

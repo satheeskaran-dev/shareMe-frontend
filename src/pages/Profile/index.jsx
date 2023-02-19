@@ -9,7 +9,7 @@ import {
 import ProfileCard from "./components/ProfileCard";
 import { FlexColumn } from "../../components/core/FlexItems";
 import LeftSide from "./components/LeftSide";
-import NewPostCard from "../../components/layout/NewPostCard";
+import CreatePostCard from "../../components/layout/CreatePostCard";
 import PostCard from "../../components/layout/PostCard";
 import RightSide from "./components/RightSide";
 import { useRemoveProfileMutation } from "../../service/userService";
@@ -57,10 +57,17 @@ const Profile = () => {
               ActionMenuCloseHandler,
             }}
           />
-          <NewPostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          <CreatePostCard {...{ profileImg: user?.profileImg }} />
+          {user?.posts?.map((post) => (
+            <PostCard
+              key={post._id}
+              {...{
+                fullName: [user?.firstName, user?.lastName].join(" "),
+                profileImg: user?.profileImg,
+                posts: post,
+              }}
+            />
+          ))}
         </FlexColumn>
       </CenterContainer>
       <RightContainer>

@@ -1,16 +1,32 @@
+import { useMemo } from "react";
 import { FlexColumn } from "../../../../components/core/FlexItems";
-import NewPostCard from "../../../../components/layout/NewPostCard";
+import CreatePostCard from "../../../../components/layout/CreatePostCard";
 import PostCard from "../../../../components/layout/PostCard";
 
-const NewsFeedWidget = ({ postCardProps, newPostCardProps }) => {
+const NewsFeed = ({ postCardProps, createPostCardProps }) => {
+  const { firstName, lastName, profileImg } = postCardProps || {};
+  const { handleNewPostFormSubmit } = createPostCardProps || {};
+
+  const fullName = useMemo(
+    () => [firstName, lastName].join(" "),
+    [firstName, lastName]
+  );
   return (
     <FlexColumn>
-      <NewPostCard {...newPostCardProps} />
-      <PostCard {...postCardProps} />
-      <PostCard {...postCardProps} />
-      <PostCard {...postCardProps} />
+      <CreatePostCard {...{ profileImg, handleNewPostFormSubmit }} />
+      <PostCard
+        {...{
+          fullName: fullName,
+          profileImg,
+          postedTime: "",
+          postPicture: "",
+          likes: "",
+          comments: "",
+          shares: "",
+        }}
+      />
     </FlexColumn>
   );
 };
 
-export default NewsFeedWidget;
+export default NewsFeed;

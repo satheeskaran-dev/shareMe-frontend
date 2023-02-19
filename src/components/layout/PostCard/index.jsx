@@ -2,11 +2,14 @@ import { useState, useCallback } from "react";
 import { Picture } from "./styles";
 import { FlexContainer } from "../../../components/core/FlexItems";
 import { Avatar, Divider, Stack, Typography, Collapse } from "@mui/material";
-import { TypographyDark, TypographyMedium } from "../../../components/core/Typography";
+import {
+  TypographyDark,
+  TypographyMedium,
+} from "../../../components/core/Typography";
 import CommentsList from "./CommentsList";
 import ActionButtons from "./ActionButtons";
 
-const PostCard = ({ image }) => {
+const PostCard = ({ fullName, profileImg, posts }) => {
   const [openCommentBox, setOpenCommentBox] = useState(false);
 
   const handleCommentButtonClicked = useCallback(() => {
@@ -15,20 +18,18 @@ const PostCard = ({ image }) => {
   return (
     <FlexContainer gap='1rem' column>
       <Stack direction='row' spacing={10}>
-        <Avatar />
+        <Avatar src={profileImg} />
         <Stack direction='column'>
-          <TypographyDark variant='subtile2'> Satheeskaran</TypographyDark>
+          <TypographyDark variant='subtile2'> {fullName}</TypographyDark>
           <TypographyMedium variant='overline' fontWeight={300}>
             2h ago
           </TypographyMedium>
         </Stack>
       </Stack>
       {/* POST DESCRIPTION */}
-      <Typography variant='body2'>
-        Hi there... merry christmas i hope all of you enjoy lot during this holiday season
-      </Typography>
+      <Typography variant='body2'>{posts?.description}</Typography>
       {/* POST IMAGE */}
-      <Picture src={image} alt='post' />
+      {posts?.image && <Picture src={posts?.image} alt='post' />}
 
       <Stack direction='row' justifyContent='space-around'>
         <Typography variant='overline' flexGrow={1}>

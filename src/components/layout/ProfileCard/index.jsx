@@ -49,7 +49,8 @@ const ProfileCard = ({
         <ActionMenu
           anchorEl={anchorEl}
           handleClose={ActionMenuCloseHandler}
-          removeButtonClicked={profileImg && handleRemoveProfileImage}
+          profileImg={profileImg}
+          removeButtonClicked={handleRemoveProfileImage}
         />
       </ProfileImages>
       <FlexColumn alignItems='center' mt='3.5rem' spacing={0}>
