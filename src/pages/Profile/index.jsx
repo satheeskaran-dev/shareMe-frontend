@@ -12,22 +12,35 @@ import LeftSide from "./components/LeftSide";
 import CreatePostCard from "../../components/layout/CreatePostCard";
 import PostCard from "../../components/layout/PostCard";
 import RightSide from "./components/RightSide";
-import { useRemoveProfileMutation } from "../../service/userService";
+import {
+  useRemoveProfileMutation,
+  useGetUserPostQuery,
+} from "../../service/userService";
+import { useCreatePostMutation } from "../../service/postService";
 import { removeProfilePicture } from "../../store/features/authSlice";
 
 const Profile = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const user = useSelector((state) => state?.persist?.auth?.user);
-
-  const [removeProfile] = useRemoveProfileMutation();
   const dispatch = useDispatch();
 
+  //Profile remove query call
+  const [removeProfile] = useRemoveProfileMutation();
+
+  //create new post query call
+  const [createPost] = useCreatePostMutation();
+
+  //get post query call
+  const { data } = useGetUserPostQuery(user._id);
+
+  //profile avatar component menu open function
   const actionMenuOpenHandler = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const ActionMenuCloseHandler = useCallback(() => setAnchorEl(null), []);
 
+  //remove profile image api call
   const handleRemoveProfileImage = async () => {
     try {
       const response = await removeProfile(user?._id);
@@ -39,6 +52,17 @@ const Profile = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  // create new post form submit function
+  const handleNewPostFormSubmit = async (data) => {
+    let formData = new FormData();
+
+    Object.keys(data).map((key) => formData.append(key, data[key]));
+
+    const response = await createPost({ userId: user._id, data: formData });
+
+    console.log(response);
   };
 
   return (
@@ -57,14 +81,15 @@ const Profile = () => {
               ActionMenuCloseHandler,
             }}
           />
-          <CreatePostCard {...{ profileImg: user?.profileImg }} />
-          {user?.posts?.map((post) => (
+          <CreatePostCard
+            {...{ profileImg: user?.profileImg, handleNewPostFormSubmit }}
+          />
+          {data?.posts?.map((post) => (
             <PostCard
               key={post._id}
               {...{
-                fullName: [user?.firstName, user?.lastName].join(" "),
-                profileImg: user?.profileImg,
-                posts: post,
+                user,
+                post,
               }}
             />
           ))}

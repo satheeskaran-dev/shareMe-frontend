@@ -14,7 +14,18 @@ export const userService = apiSlice.injectEndpoints({
         params: { id },
       }),
     }),
+    getUserPost: builder.query({
+      query: (id) => ({
+        url: `/user/${id}`,
+      }),
+      keepUnusedDataFor: 0,
+      providesTags: ["Post"],
+    }),
   }),
 });
 
-export const { useRemoveProfileMutation, useLazyGetUserQuery } = userService;
+export const {
+  useRemoveProfileMutation,
+  useLazyGetUserQuery,
+  useGetUserPostQuery,
+} = userService;

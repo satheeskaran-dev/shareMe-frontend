@@ -9,7 +9,7 @@ import {
 import CommentsList from "./CommentsList";
 import ActionButtons from "./ActionButtons";
 
-const PostCard = ({ fullName, profileImg, posts }) => {
+const PostCard = ({ user, post }) => {
   const [openCommentBox, setOpenCommentBox] = useState(false);
 
   const handleCommentButtonClicked = useCallback(() => {
@@ -18,18 +18,20 @@ const PostCard = ({ fullName, profileImg, posts }) => {
   return (
     <FlexContainer gap='1rem' column>
       <Stack direction='row' spacing={10}>
-        <Avatar src={profileImg} />
+        <Avatar src={user?.profileImg} />
         <Stack direction='column'>
-          <TypographyDark variant='subtile2'> {fullName}</TypographyDark>
+          <TypographyDark variant='subtile2'>
+            {`${user?.firstName} ${user?.lastName}`}
+          </TypographyDark>
           <TypographyMedium variant='overline' fontWeight={300}>
             2h ago
           </TypographyMedium>
         </Stack>
       </Stack>
       {/* POST DESCRIPTION */}
-      <Typography variant='body2'>{posts?.description}</Typography>
+      <Typography variant='body2'>{post?.description}</Typography>
       {/* POST IMAGE */}
-      {posts?.image && <Picture src={posts?.image} alt='post' />}
+      {post?.image && <Picture src={post?.image} alt='post' />}
 
       <Stack direction='row' justifyContent='space-around'>
         <Typography variant='overline' flexGrow={1}>

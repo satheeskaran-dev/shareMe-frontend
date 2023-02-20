@@ -5,10 +5,11 @@ export const postService = apiSlice.injectEndpoints({
     createPost: builder.mutation({
       query: ({ userId, data }) => ({
         url: "/post/create-post",
-        method:'POST',
+        method: "POST",
         body: data,
         params: { userId },
       }),
+      invalidatesTags: ["Post"],
     }),
   }),
 });
