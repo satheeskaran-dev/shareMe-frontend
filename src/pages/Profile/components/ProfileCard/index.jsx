@@ -28,7 +28,7 @@ const ProfileCard = (props) => {
           </Box>
           <Divider flexItem orientation='vertical' />
           <Box>
-            <TypographyDark variant='h6'>59</TypographyDark>
+            <TypographyDark variant='h6'>{props.postCount}</TypographyDark>
             <TypographyMedium>Posts</TypographyMedium>
           </Box>
         </FollowInfo>

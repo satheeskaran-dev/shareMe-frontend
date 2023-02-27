@@ -8,18 +8,19 @@ export const userService = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    changeProfile: builder.mutation({
+      query: (id, data) => ({
+        url: `/user/change-profile/${id}`,
+
+        method: "PUT",
+        body: { data },
+      }),
+    }),
     getUser: builder.query({
       query: (id) => ({
         url: `/user`,
         params: { id },
       }),
-    }),
-    getUserPost: builder.query({
-      query: (id) => ({
-        url: `/user/${id}`,
-      }),
-      keepUnusedDataFor: 0,
-      providesTags: ["Post"],
     }),
   }),
 });
@@ -27,5 +28,5 @@ export const userService = apiSlice.injectEndpoints({
 export const {
   useRemoveProfileMutation,
   useLazyGetUserQuery,
-  useGetUserPostQuery,
+  useChangeProfileMutation,
 } = userService;

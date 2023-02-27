@@ -70,6 +70,9 @@ export const themeSettings = (mode) => {
             textTransform: "none",
             fontSize: "13px",
           },
+          outlined: {
+            fontWeight: 600,
+          },
         },
       },
       MuiCssBaseline: {

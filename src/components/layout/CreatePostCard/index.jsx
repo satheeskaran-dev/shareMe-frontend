@@ -1,4 +1,5 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Stack, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FlexContainer } from "../../../components/core/FlexItems";
 import InputBase from "../../../components/core/InputBase";
 import {
@@ -9,15 +10,27 @@ import {
 import { IconWrapper } from "./styles";
 import { useState } from "react";
 
-const NewPostCard = ({ profileImg, handleNewPostFormSubmit }) => {
+const NewPostCard = ({
+  profileImg,
+  handleNewPostFormSubmit,
+  isCreatePostLoading,
+}) => {
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const resetForm = () => {
+    setDescription("");
+    setSelectedFile(null);
+  };
 
   return (
     <form
       onSubmit={(e) => {
         if (description || selectedFile) {
-          handleNewPostFormSubmit({ description, image: selectedFile });
+          handleNewPostFormSubmit(
+            { description, image: selectedFile },
+            resetForm
+          );
         }
 
         e.preventDefault();
@@ -52,9 +65,13 @@ const NewPostCard = ({ profileImg, handleNewPostFormSubmit }) => {
               <Typography variant='overline'>Location</Typography>
             </IconWrapper>
             <IconWrapper>
-              <Button variant='contained' type='submit'>
+              <LoadingButton
+                variant='contained'
+                type='submit'
+                loading={isCreatePostLoading}
+              >
                 Post
-              </Button>
+              </LoadingButton>
             </IconWrapper>
           </Stack>
         </Stack>

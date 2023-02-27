@@ -7,7 +7,6 @@ import {
   TypographyDark,
   TypographyMedium,
 } from "../../../components/core/Typography";
-import ActionMenu from "./ActionMenu";
 
 const ProfileCard = ({
   children,
@@ -19,12 +18,7 @@ const ProfileCard = ({
     () => [firstName, lastName].join(" "),
     [firstName, lastName]
   );
-  const {
-    anchorEl,
-    actionMenuOpenHandler,
-    ActionMenuCloseHandler,
-    handleRemoveProfileImage,
-  } = cardActions || {};
+  const { handleProfileEditPopUpOpen } = cardActions || {};
   return (
     <FlexContainer column>
       <ProfileImages>
@@ -35,23 +29,13 @@ const ProfileCard = ({
           badgeContent={
             <EditIcon
               sx={!isEditable && { display: "none" }}
-              onClick={actionMenuOpenHandler}
-              id='basic-button'
-              aria-controls={Boolean(anchorEl) ? "basic-menu" : undefined}
-              aria-haspopup='true'
-              aria-expanded={Boolean(anchorEl) ? "true" : undefined}
+              onClick={handleProfileEditPopUpOpen}
             />
           }
           sx={{ position: "absolute", bottom: "-50px" }}
         >
           <UserAvatar src={profileImg} alt='user' />
         </Badge>
-        <ActionMenu
-          anchorEl={anchorEl}
-          handleClose={ActionMenuCloseHandler}
-          profileImg={profileImg}
-          removeButtonClicked={handleRemoveProfileImage}
-        />
       </ProfileImages>
       <FlexColumn alignItems='center' mt='3.5rem' spacing={0}>
         <TypographyDark variant='h6'>{fullName}</TypographyDark>

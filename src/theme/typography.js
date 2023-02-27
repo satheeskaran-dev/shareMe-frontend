@@ -2,12 +2,12 @@ import WebFont from "webfontloader";
 
 WebFont.load({
   google: {
-    families: ["Inter:300,400,500,600,700", "sans-serif"],
+    families: ["PT Sans:300,400,500,600,700", "sans-serif"],
   },
 });
 
 export const typography = {
-  fontFamily: ["Inter", "sans-serif"].join(","),
+  fontFamily: ["PT Sans", "sans-serif"].join(","),
   h1: {
     fontSize: "30px",
     fontWeight: 500,
