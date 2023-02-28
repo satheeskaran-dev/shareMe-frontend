@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import { Avatar, CancelButton, Container, ProgressBar } from "./styles";
 import { EditOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
@@ -28,10 +27,10 @@ const ProfileEditPopUp = ({
           <Button
             variant='outlined'
             fullWidth
-            startIcon={<EditOutlined />}
+            startIcon={imagePreview && <EditOutlined />}
             component='label'
           >
-            Change
+            {imagePreview ? "Change" : "Add"}
             <input
               hidden
               accept='image/*'
@@ -44,14 +43,14 @@ const ProfileEditPopUp = ({
             <Button
               variant='outlined'
               fullWidth
-              startIcon={<DeleteOutlineOutlined />}
+              startIcon={!isImageUploaderHasFile && <DeleteOutlineOutlined />}
               onClick={
                 isImageUploaderHasFile
                   ? UpdateProfileImageButtonClicked
                   : removeButtonClicked
               }
             >
-              {isImageUploaderHasFile ? "Update" : "Remove"}
+              {isImageUploaderHasFile ? "Set" : "Remove"}
             </Button>
           )}
         </Box>

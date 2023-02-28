@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Avatar, Stack, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FlexContainer } from "../../../components/core/FlexItems";
@@ -8,50 +9,86 @@ import {
   LocationOnOutlined,
 } from "@mui/icons-material";
 import { IconWrapper } from "./styles";
-import { useState } from "react";
+import { useCreatePostMutation } from "../../../service/postService";
 
-const NewPostCard = ({
-  profileImg,
-  handleNewPostFormSubmit,
-  isCreatePostLoading,
-}) => {
+const NewPostCard = ({ user }) => {
   const [description, setDescription] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [file, setFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  //create new post query call
+  const [createPost, { isLoading: isCreatePostLoading }] =
+    useCreatePostMutation();
 
   const resetForm = () => {
     setDescription("");
-    setSelectedFile(null);
+    setFile(null);
+  };
+
+  //image on change
+
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (!selectedFile || !(selectedFile instanceof Blob)) {
+      return;
+    }
+    setFile(selectedFile);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  // create new post form submit function
+  const handleNewPostFormSubmit = async (data) => {
+    let formData = new FormData();
+    Object.keys(data).map((key) => formData.append(key, data[key]));
+    const response = await createPost({ userId: user._id, data: formData });
+    if (response) {
+      resetForm();
+      setImagePreview(null);
+      setFile(null);
+    }
   };
 
   return (
     <form
       onSubmit={(e) => {
-        if (description || selectedFile) {
-          handleNewPostFormSubmit(
-            { description, image: selectedFile },
-            resetForm
-          );
+        if (description || file) {
+          handleNewPostFormSubmit({ description, image: file });
         }
-
         e.preventDefault();
       }}
     >
       <FlexContainer>
-        <Avatar src={profileImg} />
+        <Avatar src={user?.profileImg} />
         <Stack direction='column' spacing={20} ml={15} width='100%'>
           <InputBase
+            autoFocus
             multiline
             placeholder="What's happening?"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {imagePreview && (
+            <img
+              style={{
+                width: "100%",
+                borderRadius: "9px",
+              }}
+              src={imagePreview}
+              alt=''
+            />
+          )}
           <Stack direction='row' justifyContent='space-between'>
             <IconWrapper component='label'>
               <input
                 hidden
                 accept='image/*'
                 type='file'
-                onChange={(e) => setSelectedFile(e.target.files[0])}
+                onChange={handleImageChange}
               />
               <InsertPhotoOutlined />
               <Typography variant='overline'>Photo</Typography>

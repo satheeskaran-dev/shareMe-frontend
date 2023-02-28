@@ -10,6 +10,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setLoggedInUserData: (state, { payload }) => payload,
+    reSetUserData: (state, { payload }) => ({
+      ...state,
+      user: { ...state.user, profileImg: payload?.profileImg },
+    }),
     removeProfilePicture: (state) => ({
       ...state,
       user: { ...state.user, profileImg: "" },
@@ -20,6 +24,10 @@ const authSlice = createSlice({
   },
 });
 
-export const { setLoggedInUserData, removeProfilePicture, logout } =
-  authSlice.actions;
+export const {
+  setLoggedInUserData,
+  removeProfilePicture,
+  reSetUserData,
+  logout,
+} = authSlice.actions;
 export default authSlice.reducer;

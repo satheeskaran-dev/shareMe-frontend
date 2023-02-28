@@ -9,13 +9,13 @@ export const userService = apiSlice.injectEndpoints({
       }),
     }),
     changeProfile: builder.mutation({
-      query: (id, data) => ({
+      query: ({ id, image }) => ({
         url: `/user/change-profile/${id}`,
-
-        method: "PUT",
-        body: { data },
+        method: "PATCH",
+        body: image,
       }),
     }),
+
     getUser: builder.query({
       query: (id) => ({
         url: `/user`,

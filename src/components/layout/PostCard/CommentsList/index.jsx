@@ -6,8 +6,6 @@ const CommentsList = () => {
   return (
     <Container>
       <Comment />
-      <Comment />
-      <Comment />
       <NewComment />
     </Container>
   );

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Stack,
@@ -25,13 +25,21 @@ import MobileMenu from "./MobileMenu";
 
 const Header = ({ logoutButtonClicked }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mode = useSelector((state) => state?.persist?.theme?.mode);
+  const { mode, user } = useSelector((state) => ({
+    mode: state?.persist?.theme?.mode,
+    user: state?.persist?.auth?.user,
+  }));
   const dispatch = useDispatch();
   const isSmallDevices = useMediaQuery(useTheme().breakpoints.down("1000"));
 
   const toggleMobileMenuHandler = useCallback(
     () => setMobileMenuOpen(!mobileMenuOpen),
     [mobileMenuOpen]
+  );
+
+  const fullName = useMemo(
+    () => `${user?.firstName} ${user?.lastName}`,
+    [user.firstName, user.lastName]
   );
 
   return (
@@ -77,7 +85,7 @@ const Header = ({ logoutButtonClicked }) => {
             <NotificationsNoneOutlined />
             <HelpOutlineOutlined />
           </IconWrapper>
-          <Typography variant='body1'>Balasuntharam Satheeskaran</Typography>
+          <Typography variant='body1'>{fullName}</Typography>
           <LogoutButton onClick={logoutButtonClicked} />
         </Stack>
       )}

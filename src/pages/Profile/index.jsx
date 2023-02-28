@@ -18,13 +18,11 @@ import {
   useRemoveProfileMutation,
   useChangeProfileMutation,
 } from "../../service/userService";
-import {
-  useCreatePostMutation,
-  useDeletePostMutation,
-} from "../../service/postService";
+import { useDeletePostMutation } from "../../service/postService";
 import { useGetPostQuery } from "../../service/postService";
 import { removeProfilePicture } from "../../store/features/authSlice";
 import ProfileEditPopUp from "./components/ProfileEditPopUp";
+import { reSetUserData } from "../../store/features/authSlice";
 
 const Profile = () => {
   const user = useSelector((state) => state?.persist?.auth?.user);
@@ -37,7 +35,6 @@ const Profile = () => {
 
   //get post query call
   const { data: userPosts } = useGetPostQuery(user._id);
-  console.log(userPosts?.data?.length);
 
   //Profile remove query call
   const [removeProfile, { isLoading: profileRemoveLoading }] =
@@ -47,12 +44,6 @@ const Profile = () => {
   const [changeProfile, { isLoading: profileChangeLoading }] =
     useChangeProfileMutation();
 
-  //create new post query call
-  const [
-    createPost,
-    { isLoading: isCreatePostLoading, isSuccess: isCreatePostSuccess },
-  ] = useCreatePostMutation();
-
   //delete post query call
 
   const [deletePost, { isLoading: isPostDeleteLoading }] =
@@ -60,18 +51,24 @@ const Profile = () => {
 
   //profile avatar component menu open function
   const handleProfileEditPopUpOpen = () => {
+    setImagePreview(user?.profileImg);
     setOpenProfilePopUp(true);
   };
   const handleProfileEditPopUpClose = () => {
     setOpenProfilePopUp(false);
+    setImagePreview(null);
+    setFile(null);
   };
 
   //image on change
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
 
+    if (!selectedFile || !(selectedFile instanceof Blob)) {
+      return;
+    }
+    setFile(selectedFile);
     const reader = new FileReader();
     reader.onload = () => {
       setImagePreview(reader.result);
@@ -84,9 +81,10 @@ const Profile = () => {
   const handleProfileRemoveButtonClicked = async () => {
     try {
       const response = await removeProfile(user?._id);
-
       if (response?.data?.status === 200) {
         dispatch(removeProfilePicture());
+        setImagePreview(null);
+        setFile(null);
         handleProfileEditPopUpClose();
       }
     } catch (err) {
@@ -99,27 +97,18 @@ const Profile = () => {
   const handleUpdateProfileFormSubmit = async () => {
     let formData = new FormData();
     formData.append("profileImg", file);
-
-    console.log(user._id);
-    const response = await changeProfile(user._id, formData);
-
-    console.log(response);
+    const response = await changeProfile({ id: user._id, image: formData });
+    dispatch(reSetUserData(response.data.user));
+    handleProfileEditPopUpClose();
+    setFile(null);
   };
 
-  // create new post form submit function
-  const handleNewPostFormSubmit = async (data, resetForm) => {
-    let formData = new FormData();
-
-    Object.keys(data).map((key) => formData.append(key, data[key]));
-
-    const response = await createPost({ userId: user._id, data: formData });
-
-    response && resetForm();
-  };
   // Post delete function
   const handleDeletePost = async (id) => {
-    const response = await deletePost(id);
+    await deletePost(id);
   };
+
+  //
 
   return (
     <Container>
@@ -137,9 +126,7 @@ const Profile = () => {
           />
           <CreatePostCard
             {...{
-              profileImg: user?.profileImg,
-              handleNewPostFormSubmit,
-              isCreatePostLoading,
+              user,
             }}
           />
           <TransitionGroup>
