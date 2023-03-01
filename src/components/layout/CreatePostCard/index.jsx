@@ -66,7 +66,6 @@ const NewPostCard = ({ user }) => {
         <Avatar src={user?.profileImg} />
         <Stack direction='column' spacing={20} ml={15} width='100%'>
           <InputBase
-            autoFocus
             multiline
             placeholder="What's happening?"
             value={description}

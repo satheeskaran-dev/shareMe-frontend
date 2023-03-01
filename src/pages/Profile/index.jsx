@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Collapse } from "@mui/material";
+import { Collapse, useTheme, useMediaQuery } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import {
   Container,
@@ -32,6 +32,7 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = useState(user?.profileImg);
 
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery(useTheme().breakpoints.down("md"));
 
   //get post query call
   const { data: userPosts } = useGetPostQuery(user._id);
@@ -112,9 +113,11 @@ const Profile = () => {
 
   return (
     <Container>
-      <LeftContainer>
-        <LeftSide />
-      </LeftContainer>
+      {!isMobile && (
+        <LeftContainer>
+          <LeftSide />
+        </LeftContainer>
+      )}
       <CenterContainer>
         <FlexColumn>
           <ProfileCard
@@ -124,6 +127,7 @@ const Profile = () => {
               handleProfileEditPopUpOpen,
             }}
           />
+          {isMobile && <LeftSide />}
           <CreatePostCard
             {...{
               user,
@@ -145,9 +149,11 @@ const Profile = () => {
           </TransitionGroup>
         </FlexColumn>
       </CenterContainer>
+
       <RightContainer>
         <RightSide />
       </RightContainer>
+
       <ProfileEditPopUp
         isOpen={openProfilePopUp}
         isProgressBarLoading={profileRemoveLoading || profileChangeLoading}
