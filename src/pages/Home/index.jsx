@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Container,
@@ -8,21 +9,40 @@ import {
 import Profile from "./components/Profile";
 import NewsFeed from "./components/NewsFeed";
 import Advert from "./components/Advert";
-import { useCreatePostMutation } from "../../service/postService";
+import {
+  useCreatePostMutation,
+  useGetPostsQuery,
+  useDeletePostMutation,
+} from "../../service/postService";
 
 const Home = () => {
+  const [deletingPostId, setDeletingPostId] = useState(null);
   const user = useSelector((state) => state?.persist?.auth?.user);
 
   const [createPost] = useCreatePostMutation();
 
-  const handleNewPostFormSubmit = async (data) => {
-    let formData = new FormData();
+  const { isLoading, data: posts } = useGetPostsQuery();
 
-    Object.keys(data).map((key) => formData.append(key, data[key]));
+  //delete post query call
 
-    const response = await createPost({ userId: user._id, data: formData });
+  const [deletePost, { isLoading: isPostDeleteLoading }] =
+    useDeletePostMutation();
 
-    console.log(response);
+  // const handleNewPostFormSubmit = async (data) => {
+  //   console.log("function called");
+  //   let formData = new FormData();
+
+  //   Object.keys(data).map((key) => formData.append(key, data[key]));
+
+  //   const response = await createPost({ userId: user._id, data: formData });
+
+  //   console.log(response);
+  // };
+
+  // Post delete function
+  const handleDeletePost = async (id) => {
+    setDeletingPostId(id);
+    await deletePost(id);
   };
   return (
     <Container>
@@ -31,9 +51,11 @@ const Home = () => {
       </LeftContainer>
       <CenterContainer>
         <NewsFeed
-          handleNewPostFormSubmit={handleNewPostFormSubmit}
-          createPostCardProps={{ handleNewPostFormSubmit, user }}
-          postCardProps={user}
+          createPostCardProps={{
+            handleDeletePost,
+            user,
+          }}
+          posts={posts}
         />
       </CenterContainer>
       <RightContainer>

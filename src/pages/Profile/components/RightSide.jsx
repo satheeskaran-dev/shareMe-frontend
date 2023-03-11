@@ -6,11 +6,10 @@ const RightSide = () => {
   return (
     <FlexContainer column gap='.75rem' sx={{ padding: "2rem" }}>
       <TypographyDark variant='h6'> Trends for your</TypographyDark>
-
-      <AdvertCard />
-      <AdvertCard />
-      <AdvertCard />
-      <AdvertCard />
+      <AdvertCard title='#MongoDB' count='07k Shares' />
+      <AdvertCard title='#React' count='27k Shares' />
+      <AdvertCard title='#Nodejs' count='17k Shares' />
+      <AdvertCard title='#Express' count='17k Shares' />
     </FlexContainer>
   );
 };

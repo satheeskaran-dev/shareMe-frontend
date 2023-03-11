@@ -2,19 +2,24 @@ import { FlexColumn } from "../../../../components/core/FlexItems";
 import CreatePostCard from "../../../../components/layout/CreatePostCard";
 import PostCard from "../../../../components/layout/PostCard";
 
-const NewsFeed = ({ postCardProps, createPostCardProps }) => {
-  const { profileImg } = postCardProps || {};
-  const { handleNewPostFormSubmit } = createPostCardProps || {};
+const NewsFeed = ({ posts, createPostCardProps }) => {
+  // const { profileImg } = postCardProps || {};
+  const { handleNewPostFormSubmit, handleDeletePost, user } =
+    createPostCardProps || {};
 
   return (
     <FlexColumn>
-      <CreatePostCard {...{ profileImg, handleNewPostFormSubmit }} />
-      <PostCard
-        {...{
-          post: "post",
-          user: "",
-        }}
-      />
+      <CreatePostCard {...{ handleNewPostFormSubmit, user }} />
+      {posts?.map((post) => (
+        <PostCard
+          key={post._id}
+          {...{
+            post: post,
+            handleDeletePost,
+            user: "",
+          }}
+        />
+      ))}
     </FlexColumn>
   );
 };

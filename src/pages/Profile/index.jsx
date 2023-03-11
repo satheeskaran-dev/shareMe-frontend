@@ -30,6 +30,7 @@ const Profile = () => {
   const [openProfilePopUp, setOpenProfilePopUp] = useState(false);
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(user?.profileImg);
+  const [deletingPostId, setDeletingPostId] = useState(null);
 
   const dispatch = useDispatch();
   const isMobile = useMediaQuery(useTheme().breakpoints.down("md"));
@@ -106,6 +107,7 @@ const Profile = () => {
 
   // Post delete function
   const handleDeletePost = async (id) => {
+    setDeletingPostId(id);
     await deletePost(id);
   };
 
@@ -138,11 +140,13 @@ const Profile = () => {
               <Collapse key={post._id}>
                 <PostCard
                   {...{
-                    user,
                     post,
                     handleDeletePost,
-                    isPostDeleteLoading,
                   }}
+                  isPostDeleteLoading={
+                    deletingPostId === post._id && isPostDeleteLoading
+                  }
+                  isDeletable
                 />
               </Collapse>
             ))}

@@ -8,10 +8,9 @@ const Profile = ({ user }) => {
     <FlexColumn>
       <ProfileCard user={user} />
       <TypographyDark variant='h6'>Who is following you</TypographyDark>
-      <FollowerCard />
-      <FollowerCard />
-      <FollowerCard />
-      <FollowerCard />
+      <FollowerCard name='Satheesh Bala' tagName='@SatheeshBala' />
+      <FollowerCard name='John dio' tagName='@JohnDio' />
+      <FollowerCard name='David Miller' tagName='@DavidMiller' />
     </FlexColumn>
   );
 };

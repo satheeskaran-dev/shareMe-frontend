@@ -25,6 +25,14 @@ export const postService = apiSlice.injectEndpoints({
       keepUnusedDataFor: 0,
       providesTags: ["Post"],
     }),
+    likePost: builder.mutation({
+      query: ({ userId, postId, isLiked }) => ({
+        url: `/post/like-post`,
+        method: "POST",
+        body: { userId, postId, isLiked },
+      }),
+      invalidatesTags: ["Post"],
+    }),
     deletePost: builder.mutation({
       query: (id) => ({
         url: "/post",
@@ -36,5 +44,10 @@ export const postService = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreatePostMutation, useDeletePostMutation, useGetPostQuery } =
-  postService;
+export const {
+  useCreatePostMutation,
+  useDeletePostMutation,
+  useGetPostQuery,
+  useGetPostsQuery,
+  useLikePostMutation,
+} = postService;

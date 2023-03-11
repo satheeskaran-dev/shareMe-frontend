@@ -1,11 +1,11 @@
 import { Stack } from "@mui/material";
 import { TypographyDark, TypographyMedium } from "../../core/Typography";
 
-const AdvertCard = () => {
+const AdvertCard = ({ title, count }) => {
   return (
     <Stack direction='column'>
-      <TypographyDark variant='subtitle2'>#MongoDB</TypographyDark>
-      <TypographyMedium variant='overline'>87k Shares</TypographyMedium>
+      <TypographyDark variant='subtitle2'>{title}</TypographyDark>
+      <TypographyMedium variant='overline'>{count}</TypographyMedium>
     </Stack>
   );
 };

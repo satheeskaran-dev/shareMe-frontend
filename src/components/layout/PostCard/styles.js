@@ -2,8 +2,8 @@ import { styled, Box } from "@mui/material";
 
 export const Picture = styled("img")(({ theme }) => ({
   width: "100%",
-  maxHeight: "20rem",
-  objectFit: "cover",
+  // maxHeight: "20rem",
+  objectFit: "fill",
   borderRadius: theme.shape.borderRadius,
 }));
 
